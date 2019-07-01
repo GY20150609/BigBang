@@ -1,18 +1,35 @@
 #include <iostream>
-#include "day01/Solution.h"
+#include <vector>
+#include "day03/Solution.h"
+
+using namespace std;
 
 int main()
 {
     Solution ss;
-    vector<int> input = {2,2,2,2,2};
-    vector<int> output1 = ss.isLeftUnique(input);
-    vector<int> output2 = ss.isOcuerCount(input);
-    vector<int> output3 = ss.lastOcuerIndex(input);
-    vector<int> output4 = ss.lastOcuerSum(input);
+    Node Head(1);
+    Node Head1(2);
+    Node Head2(3);
+    Node Head3(4);
+    Node Head4(5);
+    Node Head5(6);
+    Node Head6(7);
 
-    vector<int>::iterator iter;
-    for(iter = output4.begin(); iter != output4.end(); iter++)
-        cout  << *iter << endl;
+    Head.left = &Head1;
+    Head.right = &Head2;
+    Head.left->left = &Head3;
+    Head.left->right = &Head4;
+    Head.right->left = &Head5;
+    Head.right->right = &Head6;
+    //vector<int> input = {1};
+    //vector<float> output = ss.excepSelfSquare(input);
+    //vector<float>::iterator iter;
+    //ss.displayTree(Head);
+    /*
+    for(iter = output.begin(); iter != output.end(); iter++)
+       cout  << *iter << endl;
+    */
+    //cout << 0%input.size() << endl;
 
 
 
