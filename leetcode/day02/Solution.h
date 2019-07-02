@@ -14,7 +14,7 @@ using namespace std;
 
 class Solution {
 public:
-    //Q1：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+    //Q1：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
     //你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
     //示例:
     //给定 nums = [2, 7, 11, 15], target = 9
@@ -70,7 +70,8 @@ public:
     };
 
     //Q2:数组中除自己以外的乘积和，不能用除法，空间复杂度O(1)
-    vector<int> multiplyExcepSelf(vector<int>& nums) {
+    //M1:暴力法
+    vector<int> productExceptSelfV1(vector<int>& nums) {
         int leftResult = 1;
         int rightResult = 1;
         vector<int> result;
@@ -101,6 +102,50 @@ public:
                     }
                 break;
         };
+        return result;
+    };
+    // M2:时间复杂度O(N),空间复杂度O(3N)
+    vector<int> productExceptSelfV2(vector<int>& nums) {
+        vector<int> leftResult(nums.size(),-1);
+        vector<int> rightResult(nums.size(),-1);
+        vector<int> result;
+        int left = 1;
+        int right = 1;
+        for (int i = 0; i <nums.size(); i++) {
+            if(i==0){
+                left = 1;
+                right = 1;
+            }
+            else{
+                right *= nums[nums.size()-i];
+                left *= nums[i-1];
+            }
+            rightResult[nums.size()-i-1] = right;
+            leftResult[i] = left;
+        }
+        for (int i = 0; i <nums.size(); i++) {
+            result.push_back(leftResult[i]*rightResult[i]);
+        }
+        return result;
+    };
+
+    // M3:时间复杂度O(N),空间复杂度O(N)
+    vector<int> productExceptSelfV3(vector<int>& nums) {
+        vector<int> result(nums.size(),-1);
+        int left = 1;
+        int right = 1;
+        for (int i = 0; i <nums.size(); i++) {
+            if(i>0){
+                right *= nums[nums.size()-i];
+            }
+            result[nums.size()-i-1] = right;
+        }
+        for (int i = 0; i <nums.size(); i++) {
+            if(i>0){
+                left *= nums[i-1];
+            }
+            result[i] = result[i]*left;
+        }
         return result;
     };
 
@@ -145,6 +190,8 @@ public:
         };
         return result;
     };
+
+
 };
 
 #endif //LEETCODE_SOLUTION_H
